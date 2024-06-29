@@ -1,6 +1,6 @@
 const express = require("express");
 
-const receipts = require("./routes/receipts.router");
+const receipts = require("./routes/receipt.route");
 
 const PORT = 3000;
 
@@ -11,12 +11,10 @@ app.use(express.json());
 app.use("/receipts", receipts);
 
 // Catch-all error handler
-const errorHandler = (err, req, res, next) => {
-  res.status(500);
-  res.render("error", { error: err });
-};
-
-app.use(errorHandler);
+app.use((error, request, response) => {
+  response.render("error", { error: error });
+  response.status(500).end(); // response.status is not a function
+});
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
