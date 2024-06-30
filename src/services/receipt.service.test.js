@@ -1,6 +1,16 @@
+/**
+ * Tests for the calculatePoints function.
+ * @module tests/calculatePoints
+ */
+
 const { calculatePoints } = require("../services/receipt.service");
 
 describe("calculatePoints", () => {
+  /**
+   * Test case for calculating points for a simple receipt.
+   * @function
+   * @name should correctly calculate points for a given receipt
+   */
   it("should correctly calculate points for a given receipt", () => {
     const receipt = {
       retailer: "Target",
@@ -14,6 +24,11 @@ describe("calculatePoints", () => {
     expect(points).toBe(31);
   });
 
+  /**
+   * Test case for calculating points for a more complex receipt.
+   * @function
+   * @name should correctly calculate points for a given receipt
+   */
   it("should correctly calculate points for a given receipt", () => {
     const receipt = {
       retailer: "Target",
@@ -48,6 +63,11 @@ describe("calculatePoints", () => {
     expect(points).toBe(28);
   });
 
+  /**
+   * Test case for calculating points for a receipt with multiple identical items.
+   * @function
+   * @name should correctly calculate points for a given receipt
+   */
   it("should correctly calculate points for a given receipt", () => {
     const receipt = {
       retailer: "M&M Corner Market",

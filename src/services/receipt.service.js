@@ -2,12 +2,38 @@ const { v4: uuidv4 } = require("uuid");
 
 const receipts = new Map();
 
+/**
+ * Processes a receipt by saving it and returning a unique ID.
+ *
+ * @param {Object} receipt - The receipt object to be processed.
+ * @param {string} receipt.retailer - The name of the retailer.
+ * @param {string} receipt.purchaseDate - The date of purchase (YYYY-MM-DD).
+ * @param {string} receipt.purchaseTime - The time of purchase (HH:mm).
+ * @param {string} receipt.total - The total amount spent.
+ * @param {Array} receipt.items - The items on the receipt.
+ * @param {Object} receipt.items[].shortDescription - The short description of the item.
+ * @param {string} receipt.items[].price - The price of the item.
+ * @returns {Object} An object containing the unique ID for the processed receipt.
+ */
 const processReceipt = (receipt) => {
   const id = uuidv4();
   receipts.set(id, receipt);
   return { id };
 };
 
+/**
+ * Calculates the points for a given receipt.
+ *
+ * @param {Object} receipt - The receipt object to calculate points for.
+ * @param {string} receipt.retailer - The name of the retailer.
+ * @param {string} receipt.purchaseDate - The date of purchase (YYYY-MM-DD).
+ * @param {string} receipt.purchaseTime - The time of purchase (HH:mm).
+ * @param {string} receipt.total - The total amount spent.
+ * @param {Array} receipt.items - The items on the receipt.
+ * @param {Object} receipt.items[].shortDescription - The short description of the item.
+ * @param {string} receipt.items[].price - The price of the item.
+ * @returns {number} The calculated points for the receipt.
+ */
 const calculatePoints = (receipt) => {
   let points = 0;
   const isAlphanumeric = (char) => /^[a-zA-Z0-9]+$/i.test(char);
@@ -51,6 +77,12 @@ const calculatePoints = (receipt) => {
   return points;
 };
 
+/**
+ * Retrieves the points for a given receipt ID.
+ *
+ * @param {string} receiptId - The ID of the receipt.
+ * @returns {number|null} The calculated points for the receipt or null if not found.
+ */
 const getPoints = (receiptId) => {
   const receipt = receipts.get(receiptId);
   if (!receipt) {
