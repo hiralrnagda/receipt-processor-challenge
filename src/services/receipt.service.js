@@ -10,7 +10,7 @@ const processReceipt = (receipt) => {
 
 const calculatePoints = (receipt) => {
   let points = 0;
-  const isAlphanumeric = (char) => /^[a-z0-9]+$/i.test(char);
+  const isAlphanumeric = (char) => /^[a-zA-Z0-9]+$/i.test(char);
 
   // One point for every alphanumeric character in the retailer name
   points += [...receipt.retailer].filter(isAlphanumeric).length;
@@ -62,4 +62,5 @@ const getPoints = (receiptId) => {
 module.exports = {
   processReceipt,
   getPoints,
+  calculatePoints,
 };
